@@ -1,31 +1,21 @@
-# 🚀 Bitespeed Identity Reconciliation API
+ Bitespeed Identity Reconciliation API
+Live Demo: https://bitespeed-identity-mehul.onrender.com
+Contacts: https://bitespeed-identity-mehul.onrender.com/contacts
 
-[![Status](https://img.shields.io/badge/status-production-green?style=flat&logo=vercel)](https://github.com/mehulsinghhh/bitespeed-identity-reconciliation)
-
-Complete **identity reconciliation system** that merges contacts sharing **same email OR phone number**.
-
-## ✨ Features
-- ✅ **Duplicate Detection** - Email + Phone matching
-- ✅ **Primary/Secondary Linking** - `linkedId` + `linkPrecedence`
-- ✅ **Merged Response Block** - Primary record + all secondaries
-- ✅ **Production Ready** - TypeScript + SQLite + Express
-
-## 🔗 Live Demo
-**[Deploying on Render.com - Available in 15 mins]**
-
-## 📋 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/identify` | Create/link contacts (JSON body) |
-| `GET` | `/contacts` | View all contacts |
-| `GET` | `/` | Project info |
-
-## 🧪 Test /identify (Copy-paste)
-
-**cURL:**
-```bash
-curl -X POST http://localhost:8000/identify \
+📋 API Endpoints
+Method	Endpoint	Description
+POST	/identify	Create/link contacts
+GET	/contacts	View all contacts
+ Test /identify
+bash
+curl -X POST https://bitespeed-identity-mehul.onrender.com/identify \
   -H "Content-Type: application/json" \
-  -d '{"email":"john@example.com","phoneNumber":"1234567890"}'
-
+  -d '{"email":"test@example.com","phoneNumber":"1234567890"}'
+🛠 Tech Stack
+text
+TypeScript + Express + SQLite
+Deployed on Render.com
+ Local Setup
+bash
+npm install
+npm run dev
