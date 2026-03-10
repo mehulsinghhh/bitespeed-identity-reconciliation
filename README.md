@@ -1,21 +1,36 @@
- Bitespeed Identity Reconciliation API
-Live Demo: https://bitespeed-identity-mehul.onrender.com
+Bitespeed Identity Reconciliation API
+Live Deployment
+Demo: https://bitespeed-identity-mehul.onrender.com
+
 Contacts: https://bitespeed-identity-mehul.onrender.com/contacts
 
-📋 API Endpoints
+API Endpoints
 Method	Endpoint	Description
-POST	/identify	Create/link contacts
+POST	/identify	Create or link contacts
 GET	/contacts	View all contacts
- Test /identify
+Quick Test
 bash
 curl -X POST https://bitespeed-identity-mehul.onrender.com/identify \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@example.com","phoneNumber":"1234567890"}'
-🛠 Tech Stack
+  -d '{"email":"john@example.com","phoneNumber":"1234567890"}'
+Features
+✅ Email & phone duplicate detection
+
+✅ Primary/secondary contact linking
+
+✅ Merged contact blocks in response
+
+✅ Production TypeScript build
+
+✅ SQLite database persistence
+
+Tech Stack
 text
-TypeScript + Express + SQLite
-Deployed on Render.com
- Local Setup
+TypeScript + Express.js + SQLite
+Deployed on Render.com (Free tier)
+Local Setup
 bash
 npm install
 npm run dev
+# http://localhost:8000
+Production-ready identity reconciliation system
