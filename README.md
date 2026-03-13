@@ -90,5 +90,5 @@ npm run dev
 ## Author
 
 Mehul Singh
-GitHub: https://github.com/mehulsinghhh
+LinkedIn: https://www.linkedin.com/in/mehulsinghhh/
 
