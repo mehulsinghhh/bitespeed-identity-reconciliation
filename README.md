@@ -1,36 +1,94 @@
-Bitespeed Identity Reconciliation API
-Live Deployment
-Demo: https://bitespeed-identity-mehul.onrender.com
+# Identity Reconciliation API
 
-Contacts: https://bitespeed-identity-mehul.onrender.com/contacts
+A backend API that links customer contacts using email and phone numbers.
+It identifies whether different records belong to the same person and returns a unified identity.
 
-API Endpoints
-Method	Endpoint	Description
-POST	/identify	Create or link contacts
-GET	/contacts	View all contacts
-Quick Test
-bash
-curl -X POST https://bitespeed-identity-mehul.onrender.com/identify \
-  -H "Content-Type: application/json" \
-  -d '{"email":"john@example.com","phoneNumber":"1234567890"}'
-Features
-✅ Email & phone duplicate detection
+This project was built as part of the **Bitespeed backend task**.
 
-✅ Primary/secondary contact linking
+---
 
-✅ Merged contact blocks in response
+## Live API
 
-✅ Production TypeScript build
+POST endpoint:
 
-✅ SQLite database persistence
+https://bitespeed-identity-mehul.onrender.com/identify
 
-Tech Stack
-text
-TypeScript + Express.js + SQLite
-Deployed on Render.com (Free tier)
-Local Setup
-bash
+---
+
+## Tech Stack
+
+* Node.js
+* Express.js
+* TypeScript
+* SQLite
+* REST API
+
+---
+
+## API Endpoint
+
+### POST /identify
+
+Example request:
+
+```json
+{
+  "email": "john@example.com",
+  "phoneNumber": "1234567890"
+}
+```
+
+Example response:
+
+```json
+{
+  "contact": {
+    "primaryContactId": 1,
+    "emails": ["john@example.com"],
+    "phoneNumbers": ["1234567890"],
+    "secondaryContactIds": [2]
+  }
+}
+```
+
+---
+
+## How It Works
+
+The API checks existing contacts using the provided email or phone number.
+
+* If no match is found → a new **primary contact** is created
+* If a match exists → the contact is linked as a **secondary contact**
+* The system always keeps the **oldest contact as the primary identity**
+
+This ensures each user has a **single consolidated identity**.
+
+---
+
+## Running Locally
+
+Clone the repository
+
+```
+git clone https://github.com/mehulsinghhh/bitespeed-identity-reconciliation.git
+```
+
+Install dependencies
+
+```
 npm install
+```
+
+Start the server
+
+```
 npm run dev
-# http://localhost:8000
-Production-ready identity reconciliation system
+```
+
+---
+
+## Author
+
+Mehul Singh
+GitHub: https://github.com/mehulsinghhh
+
