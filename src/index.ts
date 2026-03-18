@@ -17,9 +17,33 @@ let db: any;
 async function initializeApp() {
   db = await initDb();
   
-  app.get("/", (req: Request, res: Response) => {
-    res.send("Bitespeed Identity Reconciliation API");
-  });
+  app.get("/", (req, res) => {
+  res.send(`
+    <h1>Bitespeed Identity Reconciliation API</h1>
+
+    <h2>POST /identify</h2>
+
+    <h3>Sample Request</h3>
+    <pre>
+{
+  "email": "test@example.com",
+  "phoneNumber": "1234567890"
+}
+    </pre>
+
+    <h3>Sample Response</h3>
+    <pre>
+{
+  "contact": {
+    "primaryContactId": 1,
+    "emails": ["test@example.com"],
+    "phoneNumbers": ["1234567890"],
+    "secondaryContactIds": []
+  }
+}
+    </pre>
+  `);
+});
 
   app.get("/contacts", async (req: Request, res: Response) => {
     const contacts = await db.all("SELECT * FROM Contact");
