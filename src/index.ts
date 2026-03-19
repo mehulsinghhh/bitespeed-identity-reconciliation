@@ -91,10 +91,11 @@ app.post("/identify", async (req: Request, res: Response) => {
   console.log('Creating new primary contact');
   
   const result = await db.run(
-    `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence) 
-     VALUES (?, ?, NULL, 'primary')`,
-    [phoneNumber || null, email || null]
-  );
+  `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt) 
+   VALUES (?, ?, NULL, 'primary', datetime('now'), datetime('now'))`,
+  [phoneNumber || null, email || null]
+);
+
   
   console.log('INSERT SUCCESS:', result.lastID);
   
