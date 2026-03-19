@@ -90,11 +90,18 @@ app.post("/identify", async (req: Request, res: Response) => {
    if (allMatches.length === 0) {
   console.log('Creating new primary contact');
   
+  try {
+  console.log('🔥 ABOUT TO INSERT:', { phoneNumber, email });
   const result = await db.run(
-  `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt) 
-   VALUES (?, ?, NULL, 'primary', datetime('now'), datetime('now'))`,
-  [phoneNumber || null, email || null]
-);
+    `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt) 
+     VALUES (?, ?, NULL, 'primary', datetime('now'), datetime('now'))`,
+    [phoneNumber || null, email || null]
+  );
+  console.log('✅ INSERT SUCCESS:', result.lastID);
+} catch (error) {
+  console.error('💥 INSERT FAILED:', error);
+}
+
 
   
   console.log('INSERT SUCCESS:', result.lastID);
