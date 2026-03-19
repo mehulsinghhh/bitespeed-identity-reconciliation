@@ -17,20 +17,33 @@ let db: any;
 async function initializeApp() {
   db = await initDb();
   
- app.get("/", (req, res) => {
+  app.get("/", (req, res) => {
   res.send(`
-    <h1>BiteSpeed Identity Reconciliation</h1>
-    <p>Node.js + TypeScript API that merges contacts by email/phone</p>
-    <h3>Endpoints:</h3>
-    <ul>
-      <li><a href="/contacts">GET /contacts</a> - View all contacts</li>
-      <li>POST /identify - <code>{"email": "...", "phoneNumber": "..."}</code></li>
-    </ul>
-    <p>By Mehul Singh</p>
+    <h1>Bitespeed Identity Reconciliation API</h1>
+
+    <h2>POST /identify</h2>
+
+    <h3>Sample Request</h3>
+    <pre>
+{
+  "email": "test@example.com",
+  "phoneNumber": "1234567890"
+}
+    </pre>
+
+    <h3>Sample Response</h3>
+    <pre>
+{
+  "contact": {
+    "primaryContactId": 1,
+    "emails": ["test@example.com"],
+    "phoneNumbers": ["1234567890"],
+    "secondaryContactIds": []
+  }
+}
+    </pre>
   `);
 });
-
-
 
   app.get("/contacts", async (req: Request, res: Response) => {
     const contacts = await db.all("SELECT * FROM Contact");
@@ -90,19 +103,11 @@ app.post("/identify", async (req: Request, res: Response) => {
    if (allMatches.length === 0) {
   console.log('Creating new primary contact');
   
-  try {
-  console.log('🔥 ABOUT TO INSERT:', { phoneNumber, email });
   const result = await db.run(
-    `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt) 
-     VALUES (?, ?, NULL, 'primary', datetime('now'), datetime('now'))`,
+    `INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence) 
+     VALUES (?, ?, NULL, 'primary')`,
     [phoneNumber || null, email || null]
   );
-  console.log('✅ INSERT SUCCESS:', result.lastID);
-} catch (error) {
-  console.error('💥 INSERT FAILED:', error);
-}
-
-
   
   console.log('INSERT SUCCESS:', result.lastID);
   
